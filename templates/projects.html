@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+
+{% block title %}Projects - Asad Mujeeb{% endblock %}
+
+{% block content %}
+<div class="min-h-screen bg-gray-50 dark:bg-dark-900 pt-20 pb-20">
+    <div class="container mx-auto px-4">
+        <!-- Header -->
+        <div class="text-center mb-16">
+            <h1 class="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-4">My Projects</h1>
+            <p class="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">Showcasing Python applications, APIs, and data engineering solutions</p>
+        </div>
+
+        <!-- Projects Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
+            {% for project in projects %}
+            <div class="bg-white dark:bg-dark-800 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden group hover:-translate-y-2">
+                <div class="h-48 bg-gradient-to-r from-primary-500 to-blue-600 relative overflow-hidden">
+                    <img src="{{ project.image }}" alt="{{ project.title }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+                    <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center space-x-4">
+                        {% if project.github %}
+                        <a href="{{ project.github }}" class="w-12 h-12 bg-white rounded-full flex items-center justify-center text-gray-900 hover:scale-110 transition-transform">
+                            <i class="fab fa-github"></i>
+                        </a>
+                        {% endif %}
+                        {% if project.demo %}
+                        <a href="{{ project.demo }}" class="w-12 h-12 bg-white rounded-full flex items-center justify-center text-gray-900 hover:scale-110 transition-transform">
+                            <i class="fas fa-external-link-alt"></i>
+                        </a>
+                        {% endif %}
+                    </div>
+                </div>
+                
+                <div class="p-6">
+                    <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-3">{{ project.title }}</h3>
+                    <p class="text-gray-600 dark:text-gray-400 mb-4 line-clamp-3">{{ project.description }}</p>
+                    
+                    <div class="flex flex-wrap gap-2 mb-4">
+                        {% for tech in project.technologies %}
+                        <span class="px-3 py-1 bg-primary-100 dark:bg-primary-900/30 text-primary-600 dark:text-primary-400 rounded-full text-sm font-medium">
+                            {{ tech }}
+                        </span>
+                        {% endfor %}
+                    </div>
+                    
+                    <div class="flex space-x-3">
+                        {% if project.github %}
+                        <a href="{{ project.github }}" class="flex-1 bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-300 py-2 px-4 rounded-lg text-center text-sm font-medium transition-colors">
+                            <i class="fab fa-github mr-2"></i>Code
+                        </a>
+                        {% endif %}
+                        {% if project.demo %}
+                        <a href="{{ project.demo }}" class="flex-1 bg-primary-500 hover:bg-primary-600 text-white py-2 px-4 rounded-lg text-center text-sm font-medium transition-colors">
+                            <i class="fas fa-external-link-alt mr-2"></i>Live Demo
+                        </a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+        <!-- CTA Section -->
+        <div class="bg-gradient-to-r from-primary-500 to-blue-600 rounded-2xl p-8 text-center text-white">
+            <h3 class="text-2xl font-bold mb-4">Have a project in mind?</h3>
+            <p class="text-primary-100 mb-6 max-w-2xl mx-auto">Let's discuss how we can work together to bring your ideas to life with modern Python solutions.</p>
+            <a href="{{ url_for('contact') }}" class="inline-flex items-center bg-white text-primary-600 hover:bg-gray-100 px-6 py-3 rounded-lg font-semibold transition-colors">
+                <i class="fas fa-envelope mr-2"></i>Start a Conversation
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}

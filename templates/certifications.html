@@ -1,0 +1,114 @@
+{% extends "base.html" %}
+
+{% block title %}Certifications - Asad Mujeeb{% endblock %}
+
+{% block content %}
+<div class="min-h-screen bg-gray-50 dark:bg-dark-900 pt-20 pb-20">
+    <div class="container mx-auto px-4">
+        <!-- Header -->
+        <div class="text-center mb-16">
+            <h1 class="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-4">Certifications</h1>
+            <p class="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">Validated expertise in Python development & Data Analytics</p>
+        </div>
+
+        <!-- Certifications Grid -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-6xl mx-auto mb-16">
+            {% for cert in certifications %}
+            <div class="bg-white dark:bg-dark-800 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden group hover:-translate-y-1">
+                <div class="p-6">
+                    <div class="flex items-start space-x-4 mb-4">
+                        <div class="flex-shrink-0">
+                            <div class="w-16 h-16 bg-gradient-to-br from-primary-500 to-blue-600 rounded-xl flex items-center justify-center shadow-lg">
+                                <i class="fas fa-certificate text-white text-2xl"></i>
+                            </div>
+                        </div>
+                        <div class="flex-1">
+                            <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2">{{ cert.name }}</h3>
+                            <p class="text-primary-500 dark:text-primary-400 font-semibold">{{ cert.issuer }}</p>
+                            <div class="flex flex-wrap gap-4 mt-2 text-sm text-gray-600 dark:text-gray-400">
+                                <span class="flex items-center space-x-1">
+                                    <i class="fas fa-calendar"></i>
+                                    <span>{{ cert.date }}</span>
+                                </span>
+                                {% if cert.credential_id %}
+                                <span class="flex items-center space-x-1">
+                                    <i class="fas fa-id-card"></i>
+                                    <span>{{ cert.credential_id }}</span>
+                                </span>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <p class="text-gray-600 dark:text-gray-400 mb-4">{{ cert.description }}</p>
+                    
+                    {% if cert.skills %}
+                    <div class="mb-4">
+                        <h4 class="text-sm font-semibold text-gray-900 dark:text-white mb-2">Skills Covered:</h4>
+                        <div class="flex flex-wrap gap-2">
+                            {% for skill in cert.skills %}
+                            <span class="px-3 py-1 bg-primary-100 dark:bg-primary-900/30 text-primary-600 dark:text-primary-400 rounded-full text-sm">
+                                {{ skill }}
+                            </span>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    {% endif %}
+                    
+                    {% if cert.verify_url %}
+                    <div class="flex justify-between items-center pt-4 border-t border-gray-200 dark:border-gray-700">
+                        <span class="text-sm text-gray-500 dark:text-gray-400">Credential verification available</span>
+                        <a href="{{ cert.verify_url }}" target="_blank" class="bg-primary-500 hover:bg-primary-600 text-white px-4 py-2 rounded-lg text-sm font-semibold transition-colors flex items-center space-x-2">
+                            <i class="fas fa-external-link-alt"></i>
+                            <span>Verify</span>
+                        </a>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+        <!-- Learning Path -->
+        <div class="max-w-4xl mx-auto mb-16">
+            <div class="bg-white dark:bg-dark-800 rounded-2xl shadow-lg p-8">
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-6 text-center">Learning Journey</h2>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-center">
+                    <div class="p-6 bg-gray-50 dark:bg-gray-700 rounded-xl">
+                        <div class="w-12 h-12 bg-primary-500 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <i class="fas fa-book text-white text-xl"></i>
+                        </div>
+                        <h3 class="font-semibold text-gray-900 dark:text-white mb-2">Continuous Learning</h3>
+                        <p class="text-gray-600 dark:text-gray-400 text-sm">Regularly updating skills with latest Python frameworks and best practices</p>
+                    </div>
+                    <div class="p-6 bg-gray-50 dark:bg-gray-700 rounded-xl">
+                        <div class="w-12 h-12 bg-primary-500 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <i class="fas fa-hands-helping text-white text-xl"></i>
+                        </div>
+                        <h3 class="font-semibold text-gray-900 dark:text-white mb-2">Community Engagement</h3>
+                        <p class="text-gray-600 dark:text-gray-400 text-sm">Active participation in Python communities and open-source projects</p>
+                    </div>
+                    <div class="p-6 bg-gray-50 dark:bg-gray-700 rounded-xl">
+                        <div class="w-12 h-12 bg-primary-500 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <i class="fas fa-rocket text-white text-xl"></i>
+                        </div>
+                        <h3 class="font-semibold text-gray-900 dark:text-white mb-2">Practical Application</h3>
+                        <p class="text-gray-600 dark:text-gray-400 text-sm">Implementing learned concepts in real-world projects and applications</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- CTA Section -->
+        <div class="text-center">
+            <div class="bg-gradient-to-r from-primary-500 to-blue-600 rounded-2xl p-8 text-white max-w-4xl mx-auto">
+                <h3 class="text-2xl font-bold mb-4">Stay Current with Technology</h3>
+                <p class="text-primary-100 mb-6">I'm committed to continuous learning and staying updated with the latest in Python development and cloud technologies.</p>
+                <a href="{{ url_for('contact') }}" class="inline-flex items-center bg-white text-primary-600 hover:bg-gray-100 px-6 py-3 rounded-lg font-semibold transition-colors">
+                    <i class="fas fa-comments mr-2"></i>Discuss My Qualifications
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
